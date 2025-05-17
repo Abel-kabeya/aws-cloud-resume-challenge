@@ -126,8 +126,8 @@
               </div>
               <div class="col-lg-6">
                 <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>26</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>email@example.com</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span id="age"></span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>abelkofficial@gmail.com</span></li>
                    <!-- <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+123 456 7890</span></li> -->
                 </ul>
               </div>
@@ -810,6 +810,29 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- JS Script to calculate my current age -->
+  <script>
+  function calculateAge(birthDateString) {
+    const today = new Date();
+    const birthDate = new Date(birthDateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
+  }
+
+  // Set age in the HTML
+  document.addEventListener("DOMContentLoaded", function () {
+    const ageSpan = document.getElementById("age");
+    const age = calculateAge("1999-04-16");
+    ageSpan.textContent = age;
+  });
+</script>
 
 </body>
 

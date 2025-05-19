@@ -152,8 +152,8 @@
           <div class="col-lg-3 col-md-6">
             <div class="stats-item">
               <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hours Of Support</strong> <span>aut commodi quaerat</span></p>
+              <span id="purecounter-hours" data-purecounter-start="0" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Hours Of Support</strong> <span id="hours-of-support"></span></p>
             </div>
           </div><!-- End Stats Item -->
 
@@ -852,6 +852,36 @@
     ageSpan.textContent = age;
   });
 </script>
+
+
+  <!-- The below code calculates the amount of hours I worked in technical support -->
+  <script>
+  function calculateWeekdayHours(start, end, hoursPerDay = 8) {
+    let current = new Date(start);
+    let totalHours = 0;
+
+    while (current <= end) {
+      const day = current.getUTCDay(); // 0 = Sunday, 6 = Saturday
+      if (day !== 0 && day !== 6) {
+        totalHours += hoursPerDay;
+      }
+      current.setUTCDate(current.getUTCDate() + 1);
+    }
+
+    return totalHours;
+  }
+
+  const startDate = new Date('2023-04-17T08:00:00Z');
+  const endDate = new Date(); // or use a fixed date like new Date('2025-05-15T16:30:00Z');
+
+  const supportHours = calculateWeekdayHours(startDate, endDate);
+
+  const counterEl = document.getElementById('purecounter-hours');
+  counterEl.setAttribute('data-purecounter-end', supportHours);
+
+  new PureCounter();
+</script>
+
 
 </body>
 

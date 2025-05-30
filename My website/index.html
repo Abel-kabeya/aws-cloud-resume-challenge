@@ -156,8 +156,8 @@
           <div class="col-lg-3 col-md-6">
             <div class="stats-item">
               <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Contributions & Commits Pushed</strong> <span>Commits pushed and contributions to GitHub</span></p>
+              <span id="contributionCount" data-purecounter-start="0" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Contributions & Commits Pushed</strong> <span >Commits pushed and contributions to GitHub</span></p>
             </div>
           </div><!-- End Stats Item -->
 
@@ -819,6 +819,43 @@
 
   new PureCounter();
 </script>
+
+<!-- The below code gets the number of contributions & commits pushed on my github -->
+ <script>
+  async function fetchContributions() {
+    const username = "Abel-kabeya";
+    const currentYear = new Date().getFullYear();
+    const sinceDate = `${currentYear}-01-01T00:00:00Z`; // Start of the year in ISO format
+
+    try {
+      const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+      const repos = await reposResponse.json();
+
+      let totalCommits = 0;
+
+      for (const repo of repos) {
+        const commitsResponse = await fetch(
+          `https://api.github.com/repos/${username}/${repo.name}/commits?author=${username}&since=${sinceDate}`
+        );
+
+        const commits = await commitsResponse.json();
+
+        // Handle if API returns a message due to rate limiting or empty response
+        if (Array.isArray(commits)) {
+          totalCommits += commits.length;
+        }
+      }
+
+      document.getElementById('contributionCount').textContent = totalCommits;
+    } catch (error) {
+      console.error("Error fetching commit data:", error);
+      document.getElementById('contributionCount').textContent = "Error";
+    }
+  }
+
+  fetchContributions();
+</script>
+
 
 
 </body>

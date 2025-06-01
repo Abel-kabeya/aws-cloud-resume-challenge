@@ -55,6 +55,7 @@
         <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
         <li><a href="#certificates"><i class="bi bi-hdd-stack navicon"></i> My Certificates</a></li>
         <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact</a></li>
+        <li><span class="counter-number"></span></li>
       </ul>
     </nav>
 
@@ -156,8 +157,8 @@
           <div class="col-lg-3 col-md-6">
             <div class="stats-item">
               <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Contributions & Commits Pushed</strong> <span>Commits pushed and contributions to GitHub</span></p>
+              <span id="contributionCount" data-purecounter-start="0" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Contributions & Commits Pushed</strong> <span >Commits pushed and contributions to GitHub</span></p>
             </div>
           </div><!-- End Stats Item -->
 
@@ -768,59 +769,7 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- JS Script to calculate my current age -->
-  <script>
-  function calculateAge(birthDateString) {
-    const today = new Date();
-    const birthDate = new Date(birthDateString);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-
-    return age;
-  }
-
-  // Set age in the HTML
-  document.addEventListener("DOMContentLoaded", function () {
-    const ageSpan = document.getElementById("age");
-    const age = calculateAge("1999-04-16");
-    ageSpan.textContent = age;
-  });
-</script>
-
-
-  <!-- The below code calculates the amount of hours I worked in technical support -->
-  <script>
-  function calculateWeekdayHours(start, end, hoursPerDay = 8) {
-    let current = new Date(start);
-    let totalHours = 0;
-
-    while (current <= end) {
-      const day = current.getUTCDay(); // 0 = Sunday, 6 = Saturday
-      if (day !== 0 && day !== 6) {
-        totalHours += hoursPerDay;
-      }
-      current.setUTCDate(current.getUTCDate() + 1);
-    }
-
-    return totalHours;
-  }
-
-  const startDate = new Date('2023-04-17T08:00:00Z');
-  const endDate = new Date(); // or use a fixed date like new Date('2025-05-15T16:30:00Z');
-
-  const supportHours = calculateWeekdayHours(startDate, endDate);
-
-  const counterEl = document.getElementById('purecounter-hours');
-  counterEl.setAttribute('data-purecounter-end', supportHours);
-
-  new PureCounter();
-</script>
-
-
+  
 </body>
 
 </html>

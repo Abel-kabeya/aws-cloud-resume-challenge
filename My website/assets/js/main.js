@@ -228,6 +228,28 @@
 
 })();
 
+// Website vistor counter
+document.querySelectorAll('a[href="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// JavaScript Code
+const counter = document.querySelector(".counter-number"); 
+async function updateCounter() {
+    let response = await fetch("https://7xrf6ldgs2365ma5wofnwzevni0klelz.lambda-url.af-south-1.on.aws/"); 
+    let data = await response.json(); 
+    counter.innerHTML = `Website Views: ${data.views}`;
+}
+
+updateCounter();
+
+
 // JS Script to calculate my current age 
  function calculateAge(birthDateString) {
     const today = new Date();
@@ -308,4 +330,8 @@
   }
 
   fetchContributions();
+
+
+
+
 
